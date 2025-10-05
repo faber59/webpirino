@@ -1,30 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arduino Remote Web</title>
-    <link rel='stylesheet' type='text/css' href='https://faber59.github.io/webpirino/css/style.css' />
-    <!-- <link rel='stylesheet' type='text/css' href='css/style.css' /> -->
+  <meta charset="UTF-8">
+  <title>Advanced Remote Control System</title>
+  <style>
+    body {
+      background: #026A2A;
+      color: white;
+      font-family: serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 400px;
+      margin: 48px auto 0 auto;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 24px 16px 32px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 0.4em;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #fff;
+      margin-bottom: 1em;
+      width: 100%;
+    }
+    .button {
+      width: 160px;
+      padding: 10px 0;
+      margin: 10px auto;
+      border: none;
+      border-radius: 8px;
+      background: #900101;
+      color: yellow;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+      transition: background 0.2s;
+      display: block;
+    }
+    .button:hover {
+      background: #b90001;
+    }
+    .footer {
+      text-align: center;
+      color: #fff;
+      font-size: 0.9em;
+      margin-top: 30px;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
-    <h2>Advanced Remote Control Systems</h2>
-    <hr/>
-    <br/>
-    <br/>
-    <br/>
-    <a href="#" class="bottoneOn">Accendi PC</a>
-    <!-- <a href="#" class="ledOn"></a> -->
-    <!-- <a href="#" class="cerchio"></a> -->
-    <!-- <a href="#" class="button28">3</a> -->
-
-    <div id="footer">
-        <p>
-        <h4>AVR Smart Remote Connection</h4>
-        </p>
-
+  <div class="container">
+    <h1>Advanced Remote Control System</h1>
+    <hr>
+    <div id="buttons"></div>
+    <div class="footer">
+      © 2025 Fabrizio. Tutti i diritti riservati.
     </div>
+  </div>
 
+  <script>
+    // Link al tuo file RAW su GitHub (webpirino)
+    const linksURL = "https://raw.githubusercontent.com/faber59/INFO/main/linksFF.txt";
+
+    fetch(linksURL)
+      .then(response => {
+        if (!response.ok) throw new Error("Impossibile caricare il file dei link.");
+        return response.text();
+      })
+      .then(text => {
+        const lines = text.trim().split('\n');
+        const buttonsDiv = document.getElementById('buttons');
+        lines.forEach(line => {
+          const [label, url] = line.split('|').map(e => e && e.trim());
+          if (label && url) {
+            const btn = document.createElement('button');
+            btn.className = "button";
+            btn.innerText = label;
+            btn.onclick = () => window.open(url, '_blank');
+            buttonsDiv.appendChild(btn);
+          }
+        });
+      })
+      .catch(error => {
+        document.getElementById('buttons').innerHTML = `<div style="color:yellow;">${error.message}</div>`;
+      });
+  </script>
 </body>
 </html>
