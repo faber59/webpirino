@@ -13,29 +13,22 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-    .container {
-      max-width: 400px;
-      margin: 48px auto 0 auto;
-      background: rgba(0,0,0,0.02);
-      border-radius: 12px;
-      padding: 24px 16px 32px 16px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
       align-items: center;
     }
     h1 {
       text-align: center;
       font-size: 1.4em;
       font-weight: bold;
+      margin-top: 48px;
       margin-bottom: 0.4em;
+      width: 100%;
     }
     hr {
       border: none;
       border-top: 1px solid #fff;
       margin-bottom: 1em;
       width: 100%;
+      max-width: 400px;
     }
     .button {
       width: 160px;
@@ -71,40 +64,38 @@
   </style>
 </head>
 <body>
-  <div class="container">
     <h1>Advanced Remote Control System</h1>
     <hr>
     <div id="buttons"></div>
-  </div>
 
-  <div class="footer">
-    © 2025 Fabrizio. Tutti i diritti riservati.
-  </div>
+    <div class="footer">
+      © 2025 Fabrizio. Tutti i diritti riservati.
+    </div>
 
-  <script>
-    const linksURL = "https://raw.githubusercontent.com/faber59/INFO/main/links.txt";
-    fetch(linksURL)
-      .then(response => {
-        if (!response.ok) throw new Error("Impossibile caricare il file dei link.");
-        return response.text();
-      })
-      .then(text => {
-        const lines = text.trim().split('\n');
-        const buttonsDiv = document.getElementById('buttons');
-        lines.forEach(line => {
-          const [label, url] = line.split('|').map(e => e && e.trim());
-          if (label && url) {
-            const btn = document.createElement('button');
-            btn.className = "button";
-            btn.innerText = label;
-            btn.onclick = () => window.open(url, '_blank');
-            buttonsDiv.appendChild(btn);
-          }
+    <script>
+      const linksURL = "https://raw.githubusercontent.com/faber59/INFO/main/links.txt";
+      fetch(linksURL)
+        .then(response => {
+          if (!response.ok) throw new Error("Impossibile caricare il file dei link.");
+          return response.text();
+        })
+        .then(text => {
+          const lines = text.trim().split('\n');
+          const buttonsDiv = document.getElementById('buttons');
+          lines.forEach(line => {
+            const [label, url] = line.split('|').map(e => e && e.trim());
+            if (label && url) {
+              const btn = document.createElement('button');
+              btn.className = "button";
+              btn.innerText = label;
+              btn.onclick = () => window.open(url, '_blank');
+              buttonsDiv.appendChild(btn);
+            }
+          });
+        })
+        .catch(error => {
+          document.getElementById('buttons').innerHTML = `<div style="color:yellow;">${error.message}</div>`;
         });
-      })
-      .catch(error => {
-        document.getElementById('buttons').innerHTML = `<div style="color:yellow;">${error.message}</div>`;
-      });
-  </script>
+    </script>
 </body>
 </html>
