@@ -59,8 +59,14 @@
       text-align: center;
       color: #fff;
       font-size: 0.9em;
-      margin-top: 30px;
+      width: 100%;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      background: transparent;
+      z-index: 10;
       margin-bottom: 12px;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -69,15 +75,14 @@
     <h1>Advanced Remote Control System</h1>
     <hr>
     <div id="buttons"></div>
-    <div class="footer">
-      © 2025 Fabrizio. Tutti i diritti riservati.
-    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 Fabrizio. Tutti i diritti riservati.
   </div>
 
   <script>
-    // Link al tuo file RAW su GitHub (webpirino)
-    const linksURL = "https://raw.githubusercontent.com/faber59/INFO/main/linksFF.txt";
-
+    const linksURL = "https://raw.githubusercontent.com/faber59/webpirino/main/linksFF.txt";
     fetch(linksURL)
       .then(response => {
         if (!response.ok) throw new Error("Impossibile caricare il file dei link.");
